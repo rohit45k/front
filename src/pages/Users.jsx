@@ -1,3 +1,5 @@
+import { useEffect } from "react"
+import { useNavigate } from "react-router-dom";
 import Table from 'react-bootstrap/Table';
 import User from '../components/User';
 
@@ -33,8 +35,19 @@ const USERS_DATA = [
 ]
 
 const Users = () => {
+
+  const navigate = useNavigate()
+
+    useEffect(() => {
+        const user = localStorage.getItem('user')
+        if(!user) {
+          navigate('/')
+        }
+      }, [navigate])
+
     return (
         <div>
+            <h1 className="text-center py-4">List of Users</h1>
             <Table hover className='container'>
                 <thead>
                     <tr>

@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Login from "../components/Login"
@@ -11,7 +12,6 @@ import userImage from "../assets/images/user.png"
 const Home = () => {
 
   const formSectionStyles = {
-    background: "rgb(2,0,36)",
     background: "linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(9,121,109,1) 21%, rgba(0,212,255,1) 100%)",
     minHeight: '100vh',
     height: '100%',
@@ -48,9 +48,15 @@ const Home = () => {
     transform: 'translateX(-50%)'
   }
 
-
-
+  const navigate = useNavigate()
   const [isLogin, setIsLogin] = useState(true);
+
+  useEffect(() => {
+    const user = localStorage.getItem('user')
+    if(user) {
+      navigate('users/')
+    }
+  }, [navigate])
 
   return (
     <div className="container-fluid position-relative" style={formSectionStyles}>

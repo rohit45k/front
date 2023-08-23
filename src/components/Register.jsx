@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useNavigate } from "react-router-dom";
+import axios from "axios"
 import {FaRegCalendar, FaUserAlt, FaLock} from 'react-icons/fa'
 import { MdOutlineAlternateEmail } from 'react-icons/md'
 import Button from 'react-bootstrap/Button';
@@ -6,6 +8,7 @@ import CustomInput from './CustomInput'
 
 const Register = ({setIsLogin}) => {
 
+  const navigate = useNavigate()
   const [userForm, setUserForm] = useState({
     name: '',
     dob: '',
@@ -15,13 +18,15 @@ const Register = ({setIsLogin}) => {
 
   const handleUserForm = (e) => {
     setUserForm((prevData) => {
-      return {...prevData, [e.target.name]:[e.target.value]}
+      return {...prevData, [e.target.name]:e.target.value}
     })
   }
-
-  const handleSubmit = (e) => {
+  
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log(userForm);
+    const resp = await axios.post('http://localhost:8000/register/', userForm)
+    localStorage.setItem('user', JSON.stringify(resp.data))
+    navigate('users/')
   }
 
   return (
