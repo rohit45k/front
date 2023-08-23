@@ -2,9 +2,6 @@ import { FaGear } from 'react-icons/fa6'
 import {FaRegTimesCircle } from 'react-icons/fa'
 
 const User = ({user, index}) => {
-
-    const bgColor = user.status === 'Active' ? 'green' : user.status === 'Inactive' ? 'orange' : 'red';
-
     return (
         <tr>
             <td className='py-3'>{index+1}</td>
